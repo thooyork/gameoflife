@@ -4,8 +4,13 @@
             <canvas ref="game" id="game" width="100" height="100"></canvas>
         </div>
 
-        <div id="controls">
+        <div id="controls" :class="{'toggled':!showRules}">
             <h2>Conway's Game of Life</h2>
+            <div class="togglecontrols">
+                <input type="checkbox" v-model="showRules" id="switch" />
+                <label for="switch">Toggle</label>
+            </div>
+            <div v-if="showRules" class="rules">
             <p>The universe of the Game of Life is an infinite, two-dimensional orthogonal 
                 grid of square cells, each of which is in one of two possible states, alive or dead, 
                 (or populated and unpopulated, respectively).<br><br>
@@ -21,15 +26,15 @@
             <p>Press the start button and watch what can happen by applying this simple set of rules. 
                 You also can draw your own patterns by clicking in the cells.</p>
             <!-- <div id="round">Step: <span>{{round}}</span></div> -->
-
+            </div>
             <table id="buttons">
                 <tr>
-                    <td><button id="run"  @click="run" type="button">{{ btn }}</button></td>
-                    <td><button id="step" @click="step" type="button">Step {{ round }}</button></td>
+                    <td class="col1"><button id="run"  @click="run" type="button">{{ btn }}</button></td>
+                    <td class="col2"><button id="step" @click="step" type="button">Step {{ round }}</button></td>
                 </tr>
                 <tr>
-                    <td><button id="clear" @click="clear" type="button">Clear</button></td>
-                    <td><button id="rand" @click="rand" type="button">Random Fill</button></td>
+                    <td class="col1"><button id="clear" @click="clear" type="button">Clear</button></td>
+                    <td class="col2"><button id="rand" @click="rand" type="button">Random Fill</button></td>
                 </tr>
             </table>
         </div>
@@ -45,7 +50,8 @@ export default {
         running:false,
         timer:undefined,
         btn:'Start',
-        round:0
+        round:0,
+        showRules:true
     }
   },
   mounted(){
@@ -55,6 +61,9 @@ export default {
 
   },
   methods:{
+      toggleControls:function(){
+          this.showRules = !this.showRules;
+      },
       run:function(){
             if(!this.running){
                 this.timer = setInterval(() => {
@@ -143,6 +152,54 @@ export default {
     position: absolute;
 }
 
+.togglecontrols{
+    position:absolute;
+    right:20px;
+    top:-5px;
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 40px;
+	height: 20px;
+	background: grey;
+	display: block;
+	border-radius: 20px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 20px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: #9dd0ff;
+}
+
+input:checked + label:after {
+	left: calc(100%);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 40px;
+}
+
 #controls {
     width: 450px;
     padding:20px;
@@ -177,12 +234,22 @@ export default {
 	padding: 5px;
 }
 
+.toggled{
+    width:200px!important;
+}
+
 #buttons {
     width:100%;
 }
 #buttons td{
     width:50%;
-    padding:10px;
+}
+
+.col1{
+    padding:20px 10px 0 0;
+}
+.col2{
+    padding:20px 0 0 10px;
 }
 
 #buttons button {
@@ -195,5 +262,10 @@ export default {
     color:#FFF;
     outline:none;
     font-size:12px;
+}
+
+.toggled #buttons button {
+    padding:10px 2px;
+    font-size:10px;
 }
 </style>
