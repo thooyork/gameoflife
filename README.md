@@ -1,4 +1,6 @@
-# gameoflife
+# Conways game of life vue.js project implementing HTML5 canvas
+
+![Gameoflife](screenshot_gameoflife.png?raw=true "Gameoflife")
 
 ## Project setup
 ```
