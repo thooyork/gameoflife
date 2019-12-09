@@ -51,13 +51,13 @@ Game.prototype = {
 		
 		// draw grid
 		for (x = 0.5; x < this.cfg.cellsX * this.cfg.cellSize; x += this.cfg.cellSize) {
-		  this.ctx.moveTo(x, 0);
-		  this.ctx.lineTo(x, this.cfg.cellsY * this.cfg.cellSize);
+			this.ctx.moveTo(x, 0);
+			this.ctx.lineTo(x, this.cfg.cellsY * this.cfg.cellSize);
 		}
 
 		for (y = 0.5; y < this.cfg.cellsY * this.cfg.cellSize; y += this.cfg.cellSize) {
-		  this.ctx.moveTo(0, y);
-		  this.ctx.lineTo(this.cfg.cellsX * this.cfg.cellSize, y);
+			this.ctx.moveTo(0, y);
+			this.ctx.lineTo(this.cfg.cellsX * this.cfg.cellSize, y);
 		}
 
 		this.ctx.stroke();
@@ -67,9 +67,9 @@ Game.prototype = {
 			for (y = 0; y < this.matrix[x].length; y++) {
 				if (this.matrix[x][y]) {
 					this.ctx.fillRect(x * this.cfg.cellSize + 1,
-					                  y * this.cfg.cellSize + 1,
-									  this.cfg.cellSize - 1,
-									  this.cfg.cellSize - 1);
+						y * this.cfg.cellSize + 1,
+						this.cfg.cellSize - 1,
+						this.cfg.cellSize - 1);
 				}
 			}
 		}
